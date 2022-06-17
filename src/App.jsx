@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
 import styled from "styled-components";
 
-import PokemonCard from "./PokemonCard";
 import PokemonDrawer from "./PokemonDrawer";
+import PokemonList from "./PokemonList";
 import usePokedex from "./usePokedex";
 
 const Layout = styled.div`
@@ -11,16 +11,6 @@ const Layout = styled.div`
   grid-template-columns: ${({ isDrawerOpen }) =>
     isDrawerOpen ? "1fr 0.25fr" : "1fr"};
   font: 1rem "Roboto", sans-serif;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 0 auto;
-  width: fit-content;
 `;
 
 function App() {
@@ -33,16 +23,16 @@ function App() {
 
   return (
     <Layout isDrawerOpen={!!drawerPokemon}>
-      <Grid>
-        {pokedex.pokemon_entries.map((p, idx) => (
-          <PokemonCard
-            key={idx}
-            pokemon={p.pokemon_species.name}
-            onClick={(p) => setDrawerPokemon(p)}
-          />
-        ))}
-      </Grid>
-      {!!drawerPokemon && <PokemonDrawer pokemon={drawerPokemon} />}
+      <PokemonList
+        pokemonEntries={pokedex.pokemon_entries}
+        onCardClick={setDrawerPokemon}
+      />
+      {!!drawerPokemon && (
+        <PokemonDrawer
+          onClose={() => setDrawerPokemon(undefined)}
+          pokemon={drawerPokemon}
+        />
+      )}
     </Layout>
   );
 }

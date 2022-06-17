@@ -18,7 +18,6 @@ const PokemonCard = ({ pokemon, onClick }) => {
   if (loading) {
     return <Card>Loading...</Card>;
   }
-  console.log(pokemonData);
 
   return (
     <Card onClick={() => onClick(pokemonData)}>
