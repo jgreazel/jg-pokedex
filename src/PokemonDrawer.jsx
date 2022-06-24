@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import capitalize from "lodash.capitalize";
 
-import useDamageTable from "./useDamageTable";
+import DAMAGE_CHART from "./damageChart";
 
 const Drawer = styled.div`
   position: fixed;
@@ -23,8 +23,42 @@ const getMoves = (pokemon) => {
     .sort((a, b) => a.level - b.level);
 };
 
+const getWeaknesses = (typeArr) => {
+  const getDamageField = (from) =>
+    typeArr.reduce(
+      (dmg, acc, idx) => dmg * DAMAGE_CHART[`${from}`][`${typeArr[idx]}`],
+      1
+    );
+
+  return {
+    normal: getDamageField("normal"),
+    fire: getDamageField("fire"),
+    water: getDamageField("water"),
+    electric: getDamageField("electric"),
+    grass: getDamageField("grass"),
+    ice: getDamageField("ice"),
+    fighting: getDamageField("fighting"),
+    poison: getDamageField("poison"),
+    ground: getDamageField("ground"),
+    flying: getDamageField("flying"),
+    psychic: getDamageField("psychic"),
+    bug: getDamageField("bug"),
+    rock: getDamageField("rock"),
+    ghost: getDamageField("ghost"),
+    dragon: getDamageField("dragon"),
+    dark: getDamageField("dark"),
+    steel: getDamageField("steel"),
+    fairy: getDamageField("fairy"),
+  };
+};
+
+// think next thing (before styling) is to get evolution chains
+// can use https://pokeapi.co/api/v2/evolution-chain/<id> where id == pokemon.id (pokemon prop)
+// may only show if a level up evo for now
+
 const PokemonDrawer = ({ pokemon, onClose }) => {
-  const { damageTable, loading } = useDamageTable(pokemon);
+  const types = pokemon.types.map((type) => type.type.name);
+  const weaknesses = getWeaknesses(types);
 
   return (
     <Drawer>
@@ -36,18 +70,14 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
           <span key={t.type.name}>{t.type.name + ", "}</span>
         ))}
       </p>
-      {loading ? (
-        <p>Loading Weaknesses...</p>
-      ) : (
-        <table>
-          {Object.entries(damageTable).map((x) => (
-            <tr>
-              <td>{x[0]}</td>
-              <td>{x[1]}</td>
-            </tr>
-          ))}
-        </table>
-      )}
+      <table>
+        {Object.entries(weaknesses).map((x) => (
+          <tr>
+            <td>{x[0]}</td>
+            <td>{x[1]}</td>
+          </tr>
+        ))}
+      </table>
       <table>
         <thead>Stats</thead>
         <tbody>
