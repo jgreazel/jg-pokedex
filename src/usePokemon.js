@@ -3,6 +3,7 @@ import { Pokedex } from "pokeapi-js-wrapper";
 
 const usePokemon = (pokemonName) => {
   const [pokemon, setPokemon] = useState();
+  const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,10 +13,12 @@ const usePokemon = (pokemonName) => {
       setPokemon(resp);
       setLoading(false);
     };
-    getPokemon().catch(console.error);
+    getPokemon().catch((e) => {
+      setError(e.message);
+    });
   }, []);
 
-  return { pokemon, loading };
+  return { pokemon, loading, error };
 };
 
 export default usePokemon;
