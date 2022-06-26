@@ -1,20 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 
 import PokemonCard from "./PokemonCard";
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 0 auto;
-  width: fit-content;
-`;
-
 const PokemonList = ({ pokemonEntries, onCardClick }) => (
-  <Grid>
+  <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 w-1/2 mx-auto">
     {pokemonEntries.map((p, idx) => (
       <PokemonCard
         key={idx}
@@ -22,7 +11,7 @@ const PokemonList = ({ pokemonEntries, onCardClick }) => (
         onClick={(p) => onCardClick(p)}
       />
     ))}
-  </Grid>
+  </div>
 );
 
 export default React.memo(PokemonList);

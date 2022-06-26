@@ -1,16 +1,6 @@
 import { useEffect } from "react";
-import styled from "styled-components";
-import capitalize from "lodash.capitalize";
 
 import DAMAGE_CHART from "./damageChart";
-
-const Drawer = styled.div`
-  position: fixed;
-  right: 0;
-  height: 98vh;
-  width: 25vw;
-  overflow-y: scroll;
-`;
 
 const getMoves = (pokemon) => {
   if (!pokemon.moves) return [];
@@ -52,66 +42,109 @@ const getWeaknesses = (typeArr) => {
   };
 };
 
-// think next thing (before styling) is to get evolution chains
-// can use https://pokeapi.co/api/v2/evolution-chain/<id> where id == pokemon.id (pokemon prop)
-// may only show if a level up evo for now
-
 const PokemonDrawer = ({ pokemon, onClose }) => {
   const types = pokemon.types.map((type) => type.type.name);
   const weaknesses = getWeaknesses(types);
 
   return (
-    <Drawer>
-      <h2>{capitalize(pokemon.name)}</h2>
+    <div className="overflow-y-auto w-1/4 bg-base-100 p-8 rounded-xl grid grid-cols-1 gap-2">
+      <h1 className="capitalize font-bold text-xl">{pokemon.name}</h1>
       <img src={pokemon.sprites.front_default} alt={pokemon} />
-      <p>
-        Type:{" "}
+      <div className="flex">
         {pokemon.types.map((t) => (
-          <span key={t.type.name}>{t.type.name + ", "}</span>
+          // todo add conditional colors per types
+          <div
+            className="badge badge-outline badge-lg capitalize"
+            key={t.type.name}
+          >
+            {t.type.name}
+          </div>
         ))}
-      </p>
-      <table>
-        {Object.entries(weaknesses).map((x) => (
-          <tr>
-            <td>{x[0]}</td>
-            <td>{x[1]}</td>
-          </tr>
+      </div>
+
+      <div>
+        <h2 className="font-bold">Abilities</h2>
+        <div>
+          {pokemon.abilities.map((a) => (
+            <div
+              className="badge badge-outline capitalize"
+              key={a.ability.name}
+            >
+              {a.ability.name}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="divider" />
+
+      <div>
+        <h2 className="font-bold">Weakness Multipliers</h2>
+        <div className="flex">
+          <table className="table table-compact table-zebra w-1/2">
+            <tbody>
+              {Object.entries(weaknesses)
+                .slice(0, 9)
+                .map((x) => (
+                  <tr>
+                    <td className="capitalize">{x[0]}</td>
+                    <td>{x[1]}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          <div className="divider divider-horizontal" />
+          <table className="table table-compact table-zebra w-1/2">
+            <tbody>
+              {Object.entries(weaknesses)
+                .slice(9)
+                .map((x) => (
+                  <tr>
+                    <td className="capitalize">{x[0]}</td>
+                    <td>{x[1]}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="divider" />
+
+      <div>
+        <h2 className="font-bold">Base Stats</h2>
+        {pokemon.stats.map((s, idx) => (
+          <div>
+            <div className="capitalize">{`${s.stat.name}: ${s.base_stat}`}</div>
+            <progress
+              className="progress progress-primary"
+              value={s.base_stat}
+              max="255"
+            />
+          </div>
         ))}
-      </table>
-      <table>
-        <thead>Stats</thead>
-        <tbody>
-          {pokemon.stats.map((s, idx) => (
-            <tr key={idx}>
-              <td>{s.stat.name}</td>
-              <td>{s.base_stat}</td>
+      </div>
+
+      <div className="divider" />
+
+      <div>
+        <h2 className="font-bold">Moves</h2>
+        <table className="table table-compact table-zebra w-full">
+          <tbody>
+            <tr>
+              <th>Level</th>
+              <th>Name</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <br />
-      Abilities:
-      {pokemon.abilities.map((a, idx) => (
-        <>{a.ability.name + ", "}</>
-      ))}
-      <br />
-      <table>
-        <thead>Moves</thead>
-        <tbody>
-          <tr>
-            <th>Level</th>
-            <th>Name</th>
-          </tr>
-          {getMoves(pokemon).map((m, idx) => (
-            <tr key={idx}>
-              <td>{m.level}</td>
-              <td>{m.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={onClose}>Close</button>
-    </Drawer>
+            {getMoves(pokemon).map((m, idx) => (
+              <tr key={idx}>
+                <td>{m.level}</td>
+                <td className="capitalize">{m.name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 

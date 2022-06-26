@@ -1,17 +1,8 @@
 import { useState, useMemo } from "react";
-import styled from "styled-components";
 
 import PokemonDrawer from "./PokemonDrawer";
 import PokemonList from "./PokemonList";
 import usePokedex from "./usePokedex";
-
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: auto 0.25fr;
-  grid-template-columns: ${({ isDrawerOpen }) =>
-    isDrawerOpen ? "1fr 0.25fr" : "1fr"};
-  font: 1rem "Roboto", sans-serif;
-`;
 
 function App() {
   const [drawerPokemon, setDrawerPokemon] = useState();
@@ -22,18 +13,24 @@ function App() {
   }
 
   return (
-    <Layout isDrawerOpen={!!drawerPokemon}>
-      <PokemonList
-        pokemonEntries={pokedex.pokemon_entries}
-        onCardClick={setDrawerPokemon}
-      />
-      {!!drawerPokemon && (
-        <PokemonDrawer
-          onClose={() => setDrawerPokemon(undefined)}
-          pokemon={drawerPokemon}
+    <div className="drawer drawer-end">
+      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        <PokemonList
+          pokemonEntries={pokedex.pokemon_entries}
+          onCardClick={setDrawerPokemon}
         />
-      )}
-    </Layout>
+      </div>
+      <div className="drawer-side">
+        <label for="my-drawer" className="drawer-overlay" />
+        {!!drawerPokemon && (
+          <PokemonDrawer
+            onClose={() => setDrawerPokemon(undefined)}
+            pokemon={drawerPokemon}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
