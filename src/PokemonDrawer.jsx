@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import typeColors from "./typeColors";
 import DAMAGE_CHART from "./damageChart";
 
 const getMoves = (pokemon) => {
@@ -46,6 +47,12 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
   const types = pokemon.types.map((type) => type.type.name);
   const weaknesses = getWeaknesses(types);
 
+  console.log({
+    colors: typeColors,
+    t: pokemon.types,
+    typeColor: pokemon.types.map((t) => typeColors[t.type.name]),
+  });
+
   return (
     <div className="overflow-y-auto w-5/6 sm:w-1/2 lg:w-1/4 bg-base-100 p-8 rounded-xl grid grid-cols-1 gap-2 shadow-xl">
       <h1 className="capitalize font-bold text-xl">{pokemon.name}</h1>
@@ -54,7 +61,9 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
         {pokemon.types.map((t) => (
           // todo add conditional colors per types
           <div
-            className="badge badge-outline badge-lg capitalize"
+            className={`badge badge-outline badge-lg capitalize text-${
+              typeColors[t.type.name]
+            }`}
             key={t.type.name}
           >
             {t.type.name}
