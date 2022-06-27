@@ -88,7 +88,12 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
                 .slice(0, 9)
                 .map((x) => (
                   <tr>
-                    <td className="capitalize">{x[0]}</td>
+                    <td
+                      style={{ color: typeColors[x[0]] }}
+                      className="capitalize"
+                    >
+                      {x[0]}
+                    </td>
                     <td>{x[1]}</td>
                   </tr>
                 ))}
@@ -101,7 +106,12 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
                 .slice(9)
                 .map((x) => (
                   <tr>
-                    <td className="capitalize">{x[0]}</td>
+                    <td
+                      style={{ color: typeColors[x[0]] }}
+                      className="capitalize"
+                    >
+                      {x[0]}
+                    </td>
                     <td>{x[1]}</td>
                   </tr>
                 ))}
