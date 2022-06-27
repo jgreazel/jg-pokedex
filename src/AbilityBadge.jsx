@@ -1,11 +1,12 @@
+import { useContext } from "react";
 import { useState, useEffect } from "react";
-import { Pokedex } from "pokeapi-js-wrapper";
+import PokedexContext from "./PokedexContext";
 
 const AbilityBadge = ({ abilityName }) => {
   const [data, setData] = useState();
 
   const getAbility = async () => {
-    const P = new Pokedex();
+    const P = useContext(PokedexContext);
     const resp = await P.getAbilityByName(abilityName);
     const formattedResp = {
       effect: resp.effect_entries.find((x) => x.language.name == "en").effect,

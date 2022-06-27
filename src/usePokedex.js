@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Pokedex } from "pokeapi-js-wrapper";
+import { useState, useEffect, useContext } from "react";
+import PokedexContext from "./PokedexContext";
 
 const usePokedex = (region) => {
   const [pokedex, setPokedex] = useState();
   const [loading, setLoading] = useState(true);
-  const P = new Pokedex();
+  const P = useContext(PokedexContext);
 
   useEffect(() => {
     setLoading(true);

@@ -7,11 +7,11 @@ const Navbar = ({ onNavChange, filterValue, onFilterChange }) => {
         <a className="btn btn-ghost normal-case text-xl">Pokedex</a>
       </div>
       <div className="flex-none gap-2">
-        <div class="form-control">
+        <div className="form-control">
           <input
             type="text"
             placeholder="Search"
-            class="input input-bordered"
+            className="input input-bordered"
             value={filterValue}
             onChange={(e) => onFilterChange(e.target.value)}
           />

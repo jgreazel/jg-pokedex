@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import { Pokedex } from "pokeapi-js-wrapper";
+import { useState, useEffect, useContext } from "react";
+import PokedexContext from "./PokedexContext";
 
 const usePokemon = (pokemonName) => {
   const [pokemon, setPokemon] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
+  const P = useContext(PokedexContext);
 
   useEffect(() => {
     const getPokemon = async () => {
-      const P = new Pokedex();
       const resp = await P.getPokemonByName(pokemonName);
       setPokemon(resp);
       setLoading(false);

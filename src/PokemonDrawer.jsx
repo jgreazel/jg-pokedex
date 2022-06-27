@@ -69,7 +69,7 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
         <h2 className="font-bold">Abilities</h2>
         <div>
           {pokemon.abilities.map((a) => (
-            <AbilityBadge abilityName={a.ability.name} />
+            <AbilityBadge abilityName={a.ability.name} key={a.ability.name} />
           ))}
         </div>
       </div>
