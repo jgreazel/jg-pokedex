@@ -47,11 +47,7 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
   const types = pokemon.types.map((type) => type.type.name);
   const weaknesses = getWeaknesses(types);
 
-  console.log({
-    colors: typeColors,
-    t: pokemon.types,
-    typeColor: pokemon.types.map((t) => typeColors[t.type.name]),
-  });
+  // ? so i think the issue is daisy ui is overriding default tailwind colors? Need to go into tailwind config and declare every color? ugh...
 
   return (
     <div className="overflow-y-auto w-5/6 sm:w-1/2 lg:w-1/4 bg-base-100 p-8 rounded-xl grid grid-cols-1 gap-2 shadow-xl">
