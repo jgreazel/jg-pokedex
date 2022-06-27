@@ -10,6 +10,7 @@ function App() {
     localStorage.getItem("jg-pokedex:region") || "kanto"
   );
   const [drawerPokemon, setDrawerPokemon] = useState();
+  const [filter, setFilter] = useState("");
   const { pokedex, loading } = usePokedex(region);
 
   useEffect(() => {
@@ -30,13 +31,21 @@ function App() {
     );
   }
 
+  const filteredPokemon = pokedex.pokemon_entries.filter((x) =>
+    x.pokemon_species.name.includes(filter)
+  );
+
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        <Navbar onNavChange={setRegion} />
+        <Navbar
+          onNavChange={setRegion}
+          onFilterChange={setFilter}
+          filterValue={filter}
+        />
         <PokemonList
-          pokemonEntries={pokedex.pokemon_entries}
+          pokemonEntries={filteredPokemon}
           onCardClick={setDrawerPokemon}
         />
       </div>

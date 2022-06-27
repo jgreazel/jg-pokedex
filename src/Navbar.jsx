@@ -1,12 +1,21 @@
 import React from "react";
 
-const Navbar = ({ onNavChange }) => {
+const Navbar = ({ onNavChange, filterValue, onFilterChange }) => {
   return (
     <div className="navbar bg-base-300 w-full sm:w-1/2 mx-auto rounded-xl my-4">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">Pokedex</a>
       </div>
-      <div className="flex-none">
+      <div className="flex-none gap-2">
+        <div class="form-control">
+          <input
+            type="text"
+            placeholder="Search"
+            class="input input-bordered"
+            value={filterValue}
+            onChange={(e) => onFilterChange(e.target.value)}
+          />
+        </div>
         <ul className="menu menu-horizontal p-0">
           <li tabIndex="0">
             <a>
