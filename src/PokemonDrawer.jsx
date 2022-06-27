@@ -47,19 +47,15 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
   const types = pokemon.types.map((type) => type.type.name);
   const weaknesses = getWeaknesses(types);
 
-  // ? so i think the issue is daisy ui is overriding default tailwind colors? Need to go into tailwind config and declare every color? ugh...
-
   return (
     <div className="overflow-y-auto w-5/6 sm:w-1/2 lg:w-1/4 bg-base-100 p-8 rounded-xl grid grid-cols-1 gap-2 shadow-xl">
       <h1 className="capitalize font-bold text-xl">{pokemon.name}</h1>
       <img src={pokemon.sprites.front_default} alt={pokemon} />
       <div className="flex">
         {pokemon.types.map((t) => (
-          // todo add conditional colors per types
           <div
-            className={`badge badge-outline badge-lg capitalize text-${
-              typeColors[t.type.name]
-            }`}
+            className="badge badge-outline badge-lg capitalize bg-base-100"
+            style={{ color: typeColors[t.type.name] }}
             key={t.type.name}
           >
             {t.type.name}
