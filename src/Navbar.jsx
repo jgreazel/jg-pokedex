@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = ({ onNavChange }) => {
   return (
-    <div className="navbar bg-base-300 w-1/2 mx-auto rounded-xl my-4">
+    <div className="navbar bg-base-300 w-full sm:w-1/2 mx-auto rounded-xl my-4">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">Pokedex</a>
       </div>
