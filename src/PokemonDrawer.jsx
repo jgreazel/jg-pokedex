@@ -47,7 +47,7 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
   const weaknesses = getWeaknesses(types);
 
   return (
-    <div className="overflow-y-auto w-5/6 sm:w-1/2 lg:w-1/4 bg-base-100 p-8 rounded-xl grid grid-cols-1 gap-2">
+    <div className="overflow-y-auto w-5/6 sm:w-1/2 lg:w-1/4 bg-base-100 p-8 rounded-xl grid grid-cols-1 gap-2 shadow-xl">
       <h1 className="capitalize font-bold text-xl">{pokemon.name}</h1>
       <img src={pokemon.sprites.front_default} alt={pokemon} />
       <div className="flex">

@@ -6,7 +6,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
   if (error) {
     return (
       <div className="btn h-28 drawer-button">
-        <div class="badge badge-error gap-2">error</div>
+        <div className="badge badge-error gap-2">error</div>
         <h3 className="capitalize">{pokemon}</h3>
       </div>
     );
