@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+import AbilityBadge from "./AbilityBadge";
+
 import typeColors from "./typeColors";
 import DAMAGE_CHART from "./damageChart";
 
@@ -67,12 +69,7 @@ const PokemonDrawer = ({ pokemon, onClose }) => {
         <h2 className="font-bold">Abilities</h2>
         <div>
           {pokemon.abilities.map((a) => (
-            <div
-              className="badge badge-outline capitalize"
-              key={a.ability.name}
-            >
-              {a.ability.name}
-            </div>
+            <AbilityBadge abilityName={a.ability.name} />
           ))}
         </div>
       </div>
