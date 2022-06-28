@@ -7,7 +7,7 @@ const Navbar = ({ onNavChange, filterValue, onFilterChange }) => {
         <a className="btn btn-ghost normal-case text-xl">Pokedex</a>
       </div>
       <div className="flex-none gap-2">
-        <div className="form-control">
+        <div className="form-control hidden md:grid">
           <input
             type="text"
             placeholder="Search"
